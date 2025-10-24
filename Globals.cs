@@ -1,6 +1,4 @@
 ﻿// Globals.cs
-using System;
-
 namespace SecretSantaSorter
 {
     /// <summary>

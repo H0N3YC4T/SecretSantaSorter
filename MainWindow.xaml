@@ -16,49 +16,49 @@
     <Window.Resources>
 
         <!-- Palette -->
-        <SolidColorBrush x:Key="WindowBg"     Color="#F6F7FB"/>
-        <SolidColorBrush x:Key="CardBg"       Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="CardStroke"   Color="#E5E7EB"/>
-        <SolidColorBrush x:Key="Accent"       Color="#6C63FF"/>
-        <SolidColorBrush x:Key="AccentDark"   Color="#534CDB"/>
-        <SolidColorBrush x:Key="TextPrimary"  Color="#111827"/>
-        <SolidColorBrush x:Key="TextMuted"    Color="#6B7280"/>
+        <SolidColorBrush x:Key="WindowBg"     Color="#F6F7FB" />
+        <SolidColorBrush x:Key="CardBg"       Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="CardStroke"   Color="#E5E7EB" />
+        <SolidColorBrush x:Key="Accent"       Color="#6C63FF" />
+        <SolidColorBrush x:Key="AccentDark"   Color="#534CDB" />
+        <SolidColorBrush x:Key="TextPrimary"  Color="#111827" />
+        <SolidColorBrush x:Key="TextMuted"    Color="#6B7280" />
 
         <!-- Card wrapper -->
         <Style x:Key="Card" TargetType="Border">
-            <Setter Property="Background" Value="{DynamicResource CardBg}"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="16"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource CardStroke}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Background" Value="{DynamicResource CardBg}" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStroke}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.12"/>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.12" />
                 </Setter.Value>
             </Setter>
         </Style>
 
         <!-- Section headers -->
         <Style x:Key="HeaderLabel" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
         </Style>
 
         <Style x:Key="SubHeaderLabel" TargetType="TextBlock" BasedOn="{StaticResource HeaderLabel}">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{DynamicResource TextMuted}" />
         </Style>
 
         <!-- Nicer buttons -->
         <Style x:Key="AppButton" TargetType="Button">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="Margin" Value="6"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -67,15 +67,15 @@
                                 Background="{DynamicResource Accent}">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
-                                              RecognizesAccessKey="True"/>
+                                              RecognizesAccessKey="True" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="root" Property="Background" Value="{DynamicResource AccentDark}"/>
+                                <Setter TargetName="root" Property="Background" Value="{DynamicResource AccentDark}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="root" Property="Opacity" Value="0.45"/>
-                                <Setter Property="Cursor" Value="Arrow"/>
+                                <Setter TargetName="root" Property="Opacity" Value="0.45" />
+                                <Setter Property="Cursor" Value="Arrow" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -85,7 +85,7 @@
 
         <!-- Secondary (outline) button -->
         <Style x:Key="OutlineButton" TargetType="Button" BasedOn="{StaticResource AppButton}">
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -94,15 +94,15 @@
                                 Background="#00000000"
                                 BorderBrush="{DynamicResource CardStroke}"
                                 BorderThickness="1">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="root" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                                <Setter TargetName="root" Property="BorderBrush" Value="{DynamicResource Accent}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="root" Property="Opacity" Value="0.45"/>
-                                <Setter Property="Cursor" Value="Arrow"/>
+                                <Setter TargetName="root" Property="Opacity" Value="0.45" />
+                                <Setter Property="Cursor" Value="Arrow" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -112,8 +112,8 @@
 
         <!-- TextBox with watermark (keeps your previous behavior) -->
         <Style x:Key="WatermarkTextBox" TargetType="TextBox">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Padding" Value="10" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
@@ -123,23 +123,23 @@
                                 BorderThickness="1"
                                 SnapsToDevicePixels="True">
                             <Grid>
-                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                <ScrollViewer x:Name="PART_ContentHost" />
                                 <TextBlock x:Name="Watermark"
                                            Text="{TemplateBinding Tag}"
                                            Foreground="{DynamicResource TextMuted}"
                                            Margin="10,0,0,0"
                                            VerticalAlignment="Center"
                                            IsHitTestVisible="False"
-                                           Visibility="Collapsed"/>
+                                           Visibility="Collapsed" />
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
-                                    <Condition Property="Text" Value=""/>
-                                    <Condition Property="IsKeyboardFocusWithin" Value="False"/>
+                                    <Condition Property="Text" Value="" />
+                                    <Condition Property="IsKeyboardFocusWithin" Value="False" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Watermark" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Watermark" Property="Visibility" Value="Visible" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -149,14 +149,14 @@
 
         <!-- List visual polish -->
         <Style TargetType="ListBox" x:Key="CleanListBox">
-            <Setter Property="BorderBrush" Value="{DynamicResource CardStroke}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStroke}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="White" />
         </Style>
 
         <Style TargetType="ListBoxItem">
-            <Setter Property="Padding" Value="8,6"/>
-            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="8,6" />
+            <Setter Property="Margin" Value="2" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -165,13 +165,13 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="b" Property="Background" Value="#EEF0FF"/>
-                                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
-                                <Setter Property="BorderBrush" TargetName="b" Value="{DynamicResource Accent}"/>
-                                <Setter Property="BorderThickness" TargetName="b" Value="1"/>
+                                <Setter TargetName="b" Property="Background" Value="#EEF0FF" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+                                <Setter Property="BorderBrush" TargetName="b" Value="{DynamicResource Accent}" />
+                                <Setter Property="BorderThickness" TargetName="b" Value="1" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="b" Property="Background" Value="#F6F7FF"/>
+                                <Setter TargetName="b" Property="Background" Value="#F6F7FF" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -180,29 +180,29 @@
         </Style>
 
         <!-- Converter already used by the display list -->
-        <local:RestrictionsToStringConverter x:Key="RestrictionsToStringConverter"/>
+        <local:RestrictionsToStringConverter x:Key="RestrictionsToStringConverter" />
     </Window.Resources>
 
     <!-- ======================= LAYOUT ======================= -->
     <Grid Margin="16">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2.25*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2.25*" />
         </Grid.ColumnDefinitions>
 
         <!-- LEFT CARD: controls -->
         <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Style="{StaticResource Card}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!-- Title -->
@@ -212,12 +212,12 @@
                 <StackPanel Grid.Row="1" Margin="0,10,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Text="People" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6"/>
+                        <TextBlock Grid.Row="0" Text="People" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6" />
 
                         <TextBox x:Name="txtName"
                                  Grid.Row="1"
@@ -225,51 +225,49 @@
                                  Tag="Add a new person"
                                  TextAlignment="Left"
                                  MinHeight="40"
-                                 Margin="0,0,7,0"/>
+                                 Margin="0,0,7,0" />
 
-                        <WrapPanel Grid.Row="2" ItemHeight="50" ItemWidth="160" HorizontalAlignment="Left" >
-                            <Button x:Name="btnAddPerson" Content="Add" Click="BtnAddPerson" Style="{StaticResource AppButton}"/>
-                            <Button x:Name="btnRemPerson" Content="Remove" Click="BtnRemovePerson" Style="{StaticResource OutlineButton}"/>
+                        <WrapPanel Grid.Row="2" ItemHeight="50" ItemWidth="160" HorizontalAlignment="Left">
+                            <Button x:Name="btnAddPerson" Content="Add" Click="BtnAddPerson" Style="{StaticResource AppButton}" />
+                            <Button x:Name="btnRemPerson" Content="Remove" Click="BtnRemovePerson" Style="{StaticResource OutlineButton}" />
                         </WrapPanel>
-
                     </Grid>
                 </StackPanel>
 
                 <!-- Add restrictions -->
                 <StackPanel Grid.Row="2" Margin="0,5,0,0">
-                    <TextBlock Text="Add Restrictions" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6"/>
+                    <TextBlock Text="Add Restrictions" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6" />
                     <WrapPanel ItemHeight="50" ItemWidth="160">
-                        <Button x:Name="btnAddOneWayRestriction" Content="Normal" Click="BtnAddSingleRestriction" Style="{StaticResource AppButton}"/>
-                        <Button x:Name="btnAddMutualRestriction" Content="Mutual" Click="BtnAddMutualRestriction" Style="{StaticResource OutlineButton}"/>
+                        <Button x:Name="btnAddOneWayRestriction" Content="Normal" Click="BtnAddSingleRestriction" Style="{StaticResource AppButton}" />
+                        <Button x:Name="btnAddMutualRestriction" Content="Mutual" Click="BtnAddMutualRestriction" Style="{StaticResource OutlineButton}" />
                     </WrapPanel>
                 </StackPanel>
 
                 <Grid Grid.Row="3" Margin="0,5,0,0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <!-- Remove restrictions -->
-                    <TextBlock Grid.Row="0" Text="Remove Restrictions" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6"/>
+                    <TextBlock Grid.Row="0" Text="Remove Restrictions" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6" />
                     <WrapPanel Grid.Row="1" ItemHeight="50" ItemWidth="160">
-                        <Button x:Name="btnRemSingleRestriction"  Content="Single Person" Click="BtnRemoveSingleRestriction"   Style="{StaticResource OutlineButton}"/>
-                        <Button x:Name="btnRemAllRestriction"     Content="All (Person)" Click="BtnRemoveAllSingleRestrictions" Style="{StaticResource OutlineButton}"/>
+                        <Button x:Name="btnRemSingleRestriction"  Content="Single Person" Click="BtnRemoveSingleRestriction"   Style="{StaticResource OutlineButton}" />
+                        <Button x:Name="btnRemAllRestriction"     Content="All (Person)" Click="BtnRemoveAllSingleRestrictions" Style="{StaticResource OutlineButton}" />
                     </WrapPanel>
                     <WrapPanel Grid.Row="2" ItemHeight="50" ItemWidth="160">
-                            <Button x:Name="btnRemMutualRestriction"  Content="Mutual"       Click="BtnRemoveMutualRestriction"    Style="{StaticResource OutlineButton}"/>
-                        <Button x:Name="btnRemAllMutualRestriction" Content="All Mutual" Click="BtnRemoveAllMutualRestrictions" Style="{StaticResource OutlineButton}"/>
+                        <Button x:Name="btnRemMutualRestriction"  Content="Mutual"       Click="BtnRemoveMutualRestriction"    Style="{StaticResource OutlineButton}" />
+                        <Button x:Name="btnRemAllMutualRestriction" Content="All Mutual" Click="BtnRemoveAllMutualRestrictions" Style="{StaticResource OutlineButton}" />
                     </WrapPanel>
-
                 </Grid>
 
                 <StackPanel Grid.Row="4" Margin="0,5,0,0">
-                    <TextBlock Text="Other" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6"/>
+                    <TextBlock Text="Other" Style="{StaticResource SubHeaderLabel}" Margin="2,0,0,6" />
                     <WrapPanel ItemHeight="50" ItemWidth="160">
-                        <Button x:Name="btnDisplayList" Content="Display List" Click="BtnDisplayList" Style="{StaticResource AppButton}"/>
-                        <Button x:Name="btnSaveList"    Content="Save List"    Click="BtnSaveList"    Style="{StaticResource AppButton}"/>
-                        <Button x:Name="btnRemAllPerson" Content="Clear Data" Click="BtnRemoveAllPersons" Style="{StaticResource OutlineButton}"/>
-                        <Button x:Name="btnClearLog" Content="Clear Log" Click="BtnClearLog" Style="{StaticResource OutlineButton}"/>
+                        <Button x:Name="btnDisplayList" Content="Display List" Click="BtnDisplayList" Style="{StaticResource AppButton}" />
+                        <Button x:Name="btnSaveList"    Content="Save List"    Click="BtnSaveList"    Style="{StaticResource AppButton}" />
+                        <Button x:Name="btnRemAllPerson" Content="Clear Data" Click="BtnRemoveAllPersons" Style="{StaticResource OutlineButton}" />
+                        <Button x:Name="btnClearLog" Content="Clear Log" Click="BtnClearLog" Style="{StaticResource OutlineButton}" />
                     </WrapPanel>
                 </StackPanel>
             </Grid>
@@ -279,8 +277,8 @@
         <Border Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Style="{StaticResource Card}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Names" Margin="0,0,0,10" Style="{StaticResource HeaderLabel}" />
@@ -293,7 +291,7 @@
                          SelectionMode="Single"
                          FontSize="18"
                          Visibility="Collapsed"
-                         SelectionChanged="LstNames_SelectionChanged"/>
+                         SelectionChanged="LstNames_SelectionChanged" />
 
                 <!-- Display view (NAME ->! R1, R2, ...) -->
                 <ListBox x:Name="LstDisplay"
@@ -306,10 +304,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type local:PersonData}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
-                                <TextBlock Text="  →  " Foreground="{DynamicResource TextMuted}" Margin="4,0"/>
+                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                <TextBlock Text="  →  " Foreground="{DynamicResource TextMuted}" Margin="4,0" />
                                 <TextBlock Text="{Binding Restrictions, Converter={StaticResource RestrictionsToStringConverter}, Mode=OneWay}"
-                                           Foreground="{DynamicResource TextMuted}"/>
+                                           Foreground="{DynamicResource TextMuted}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -321,8 +319,8 @@
         <Border Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource Card}" Margin="0,10,0,0" Padding="12">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Log" Style="{StaticResource HeaderLabel}" />
@@ -330,7 +328,7 @@
                          Grid.Row="1"
                          Style="{StaticResource CleanListBox}"
                          FontFamily="Consolas"
-                         FontSize="16" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                         FontSize="16" d:ItemsSource="{d:SampleData ItemCount=5}" />
             </Grid>
         </Border>
     </Grid>

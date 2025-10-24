@@ -9,7 +9,8 @@ using WpfPriority = System.Windows.Threading.DispatcherPriority;
 
 namespace SecretSantaSorter
 {
-    public enum LogLevel { Info, Warn, Error, Debug, Trace }
+    public enum LogLevel
+    { Info, Warn, Error, Debug, Trace }
 
     public static class UiLog
     {
@@ -27,24 +28,54 @@ namespace SecretSantaSorter
         /// <summary>Log a line at the top. <paramref name="tag"/> is your modifier (e.g., "Alice", "Parser").</summary>
         public static void Write(string message, string? tag = null, LogLevel level = LogLevel.Info)
         {
-            if (_dispatcher is null || _lines is null) return;
+            if (_dispatcher is null || _lines is null)
+            {
+                return;
+            }
 
             string line = $"{DateTime.Now:HH:mm:ss} [{(tag ?? level.ToString()).ToUpper()}] {message}";
 
-            void Insert() => _lines!.Insert(0, line);
-            if (_dispatcher.CheckAccess()) Insert();
-            else _dispatcher.BeginInvoke((Action)Insert, WpfPriority.Background);
+            void Insert()
+            {
+                _lines!.Insert(0, line);
+            }
+
+            if (_dispatcher.CheckAccess())
+            {
+                Insert();
+            }
+            else
+            {
+                _ = _dispatcher.BeginInvoke(Insert, WpfPriority.Background);
+            }
         }
+
         public static void Clear()
         {
-            if (_dispatcher is null || _lines is null) return;
+            if (_dispatcher is null || _lines is null)
+            {
+                return;
+            }
 
-            static void DoClear() => _lines!.Clear();
-            if (_dispatcher.CheckAccess()) DoClear();
-            else _dispatcher.BeginInvoke((Action)DoClear, DispatcherPriority.Background);
+            static void DoClear()
+            {
+                _lines!.Clear();
+            }
+
+            if (_dispatcher.CheckAccess())
+            {
+                DoClear();
+            }
+            else
+            {
+                _ = _dispatcher.BeginInvoke(DoClear, DispatcherPriority.Background);
+            }
         }
 
         /// <summary>Convenience overload with string modifier only.</summary>
-        public static void WriteTag(string tag, string message) => Write(message, tag, LogLevel.Info);
+        public static void WriteTag(string tag, string message)
+        {
+            Write(message, tag, LogLevel.Info);
+        }
     }
 }

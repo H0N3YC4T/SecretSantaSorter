@@ -1,8 +1,6 @@
 ﻿// MainWindow.xaml.cs
-using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,18 +13,18 @@ namespace SecretSantaSorter
     {
         public MainWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.PreviewKeyDown += this.Window_PreviewKeyDown;
+            PreviewKeyDown += Window_PreviewKeyDown;
 
-            UiLog.Attach(this.OutputBox);
+            UiLog.Attach(OutputBox);
             UiLog.Write(Globals.Messages.LoggerReady, Globals.LogTags.System);
 
-            this.LstNames.ItemsSource = PersonStorage.AllPersons;
-            this.LstNames.DisplayMemberPath = "Name";
+            LstNames.ItemsSource = PersonStorage.AllPersons;
+            LstNames.DisplayMemberPath = "Name";
 
             // Start in display mode
-            this.SwapView(selectionMode: false);
+            SwapView(selectionMode: false);
         }
 
         // ----------------- Pending selection state -----------------
@@ -48,23 +46,23 @@ namespace SecretSantaSorter
         {
             if (e.Key == Key.Escape)
             {
-                this.ClearPending(Globals.Messages.CancelledEsc);
+                ClearPending(Globals.Messages.CancelledEsc);
                 e.Handled = true;
             }
         }
 
         private void PrepareSelectionList()
         {
-            this.LstNames.SelectedIndex = -1;   // clear selection
-            this.LstNames.UnselectAll();        // belt-and-braces
-            this.LstNames.UpdateLayout();       // ensure visual tree is current
-            this.LstNames.Focus();              // keyboard/mouse focus ready
+            LstNames.SelectedIndex = -1;   // clear selection
+            LstNames.UnselectAll();        // belt-and-braces
+            LstNames.UpdateLayout();       // ensure visual tree is current
+            _ = LstNames.Focus();              // keyboard/mouse focus ready
         }
 
         private void SwapView(bool selectionMode)
         {
-            this.LstNames.Visibility = selectionMode ? Visibility.Visible : Visibility.Collapsed;
-            this.LstDisplay.Visibility = selectionMode ? Visibility.Collapsed : Visibility.Visible;
+            LstNames.Visibility = selectionMode ? Visibility.Visible : Visibility.Collapsed;
+            LstDisplay.Visibility = selectionMode ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void BeginOperationTwoPick(PendingOp op, Action<PersonData, PersonData> handler, string label)
@@ -75,14 +73,14 @@ namespace SecretSantaSorter
                 return;
             }
 
-            this._pendingOp = op;
-            this._pendingHandlerTwo = handler;
-            this._pendingHandlerOne = null;
-            this._pendingPrimary = null;
-            this._phase = PendingPhase.PickPrimary;
+            _pendingOp = op;
+            _pendingHandlerTwo = handler;
+            _pendingHandlerOne = null;
+            _pendingPrimary = null;
+            _phase = PendingPhase.PickPrimary;
 
-            this.SwapView(selectionMode: true);
-            this.PrepareSelectionList();
+            SwapView(selectionMode: true);
+            PrepareSelectionList();
             UiLog.Write(string.Format(CultureInfo.CurrentCulture, Globals.Formats.PickFirst, label),
                         Globals.LogTags.Action);
         }
@@ -95,73 +93,82 @@ namespace SecretSantaSorter
                 return;
             }
 
-            this._pendingOp = op;
-            this._pendingHandlerOne = handler;
-            this._pendingHandlerTwo = null;
-            this._pendingPrimary = null;
-            this._phase = PendingPhase.PickPrimary;
+            _pendingOp = op;
+            _pendingHandlerOne = handler;
+            _pendingHandlerTwo = null;
+            _pendingPrimary = null;
+            _phase = PendingPhase.PickPrimary;
 
-            this.SwapView(selectionMode: true);
-            this.PrepareSelectionList();
+            SwapView(selectionMode: true);
+            PrepareSelectionList();
             UiLog.Write(string.Format(CultureInfo.CurrentCulture, "Pick the person to {0}.", label),
                         Globals.LogTags.Action);
         }
 
         private void ClearPending(string? reason = null)
         {
-            if (this._pendingOp != PendingOp.None && reason is not null)
+            if (_pendingOp != PendingOp.None && reason is not null)
+            {
                 UiLog.Write(reason, Globals.LogTags.Action, LogLevel.Debug);
+            }
 
-            this._pendingPrimary = null;
-            this._pendingOp = PendingOp.None;
-            this._pendingHandlerTwo = null;
-            this._pendingHandlerOne = null;
-            this._phase = PendingPhase.None;
+            _pendingPrimary = null;
+            _pendingOp = PendingOp.None;
+            _pendingHandlerTwo = null;
+            _pendingHandlerOne = null;
+            _phase = PendingPhase.None;
 
-            this.SwapView(selectionMode: false);
+            SwapView(selectionMode: false);
         }
 
         private void LstNames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this._pendingOp == PendingOp.None) return;
-            if (this.LstNames.SelectedItem is not PersonData pick) return;
+            if (_pendingOp == PendingOp.None)
+            {
+                return;
+            }
 
-            if (this._phase == PendingPhase.PickPrimary)
+            if (LstNames.SelectedItem is not PersonData pick)
+            {
+                return;
+            }
+
+            if (_phase == PendingPhase.PickPrimary)
             {
                 // One-pick op: execute immediately
-                if (this._pendingHandlerOne is not null)
+                if (_pendingHandlerOne is not null)
                 {
                     try
                     {
-                        this._pendingHandlerOne(pick);
-                        this.LstDisplay.Items.Refresh();
+                        _pendingHandlerOne(pick);
+                        LstDisplay.Items.Refresh();
                     }
                     finally
                     {
-                        this.ClearPending();
+                        ClearPending();
                     }
                     return;
                 }
 
                 // Two-pick op: store primary and ask for second
-                this._pendingPrimary = pick;
-                this.LstNames.SelectedItem = null; // clear visual selection before second pick
-                this._phase = PendingPhase.PickSecond;
+                _pendingPrimary = pick;
+                LstNames.SelectedItem = null; // clear visual selection before second pick
+                _phase = PendingPhase.PickSecond;
                 UiLog.Write(string.Format(CultureInfo.CurrentCulture,
-                                          Globals.Formats.PrimarySetPickSecond, this._pendingPrimary.Name),
+                                          Globals.Formats.PrimarySetPickSecond, _pendingPrimary.Name),
                             Globals.LogTags.Action);
                 return;
             }
 
-            if (this._phase == PendingPhase.PickSecond)
+            if (_phase == PendingPhase.PickSecond)
             {
-                if (this._pendingPrimary is null || this._pendingHandlerTwo is null)
+                if (_pendingPrimary is null || _pendingHandlerTwo is null)
                 {
-                    this.ClearPending(Globals.Messages.CancelledInvalidState);
+                    ClearPending(Globals.Messages.CancelledInvalidState);
                     return;
                 }
 
-                if (string.Equals(pick.Name, this._pendingPrimary.Name, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(pick.Name, _pendingPrimary.Name, StringComparison.OrdinalIgnoreCase))
                 {
                     UiLog.Write(Globals.Messages.PickDifferentSecond, Globals.LogTags.UI, LogLevel.Warn);
                     return;
@@ -169,12 +176,12 @@ namespace SecretSantaSorter
 
                 try
                 {
-                    this._pendingHandlerTwo(this._pendingPrimary, pick);
-                    this.LstDisplay.Items.Refresh();
+                    _pendingHandlerTwo(_pendingPrimary, pick);
+                    LstDisplay.Items.Refresh();
                 }
                 finally
                 {
-                    this.ClearPending();
+                    ClearPending();
                 }
             }
         }
@@ -183,35 +190,39 @@ namespace SecretSantaSorter
 
         private void BtnAddPerson(object sender, RoutedEventArgs e)
         {
-            var name = this.txtName.Text?.Trim();
+            string? name = txtName.Text?.Trim();
             if (string.IsNullOrWhiteSpace(name))
             {
                 UiLog.Write(Globals.Messages.NameEmpty, Globals.LogTags.UI, LogLevel.Warn);
                 return;
             }
 
-            var p = PersonPush.CreateOrGet(name);
+            PersonData p = PersonPush.CreateOrGet(name);
             UiLog.Write($"Created/loaded person: {p.Name}", Globals.LogTags.People);
 
-            this.txtName.Clear();
-            this.txtName.Focus();
-            this.LstDisplay.Items.Refresh();
+            txtName.Clear();
+            _ = txtName.Focus();
+            LstDisplay.Items.Refresh();
         }
 
         private void BtnRemovePerson(object sender, RoutedEventArgs e)
         {
             // One-pick flow: pick the person to remove
-            this.BeginOperationOnePick(PendingOp.RemovePerson,
+            BeginOperationOnePick(PendingOp.RemovePerson,
                 person =>
                 {
                     if (PersonPush.RemovePerson(person, out int scrubbed))
+                    {
                         UiLog.Write(string.Format(CultureInfo.CurrentCulture,
                                                   Globals.Formats.RemovedPerson, person.Name, scrubbed),
                                     Globals.LogTags.People);
+                    }
                     else
+                    {
                         UiLog.Write(string.Format(CultureInfo.CurrentCulture,
                                                   Globals.Formats.FailedRemovePerson, person.Name),
                                     Globals.LogTags.People, LogLevel.Error);
+                    }
                 },
                 "remove");
         }
@@ -224,21 +235,24 @@ namespace SecretSantaSorter
                 return;
             }
 
-            var res = System.Windows.MessageBox.Show(
+            MessageBoxResult res = System.Windows.MessageBox.Show(
                 Globals.Dialog.ConfirmClearAllBody,
                 Globals.Dialog.ConfirmClearAllTitle,
                 MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-            if (res != MessageBoxResult.Yes) return;
+            if (res != MessageBoxResult.Yes)
+            {
+                return;
+            }
 
             int count = PersonStorage.AllPersons.Count;
             PersonStorage.AllPersons.Clear();
             UiLog.Write(string.Format(CultureInfo.CurrentCulture, Globals.Formats.ClearedAllData, count),
                         Globals.LogTags.People);
-            this.ClearPending(Globals.Messages.CancelledBecauseClearedAll);
-            this.txtName.Clear();
-            this.LstNames.SelectedItem = null;
-            this.LstDisplay.Items.Refresh();
+            ClearPending(Globals.Messages.CancelledBecauseClearedAll);
+            txtName.Clear();
+            LstNames.SelectedItem = null;
+            LstDisplay.Items.Refresh();
         }
 
         private void BtnClearLog(object sender, RoutedEventArgs e)
@@ -250,10 +264,10 @@ namespace SecretSantaSorter
 
         private void BtnAddSingleRestriction(object sender, RoutedEventArgs e)
         {
-            this.BeginOperationTwoPick(PendingOp.AddOneWay,
+            BeginOperationTwoPick(PendingOp.AddOneWay,
                 (a, b) =>
                 {
-                    var ok = PersonPush.AddRestriction(a, b);
+                    bool ok = PersonPush.AddRestriction(a, b);
                     UiLog.Write(
                         string.Format(CultureInfo.CurrentCulture,
                                       ok ? Globals.Formats.AddedRestriction
@@ -266,10 +280,10 @@ namespace SecretSantaSorter
 
         private void BtnAddMutualRestriction(object sender, RoutedEventArgs e)
         {
-            this.BeginOperationTwoPick(PendingOp.AddMutual,
+            BeginOperationTwoPick(PendingOp.AddMutual,
                 (a, b) =>
                 {
-                    var ok = PersonPush.AddMutualRestriction(a, b);
+                    bool ok = PersonPush.AddMutualRestriction(a, b);
                     UiLog.Write(
                         string.Format(CultureInfo.CurrentCulture,
                                       ok ? Globals.Formats.AddedMutualRestriction
@@ -284,7 +298,7 @@ namespace SecretSantaSorter
 
         private void BtnRemoveSingleRestriction(object sender, RoutedEventArgs e)
         {
-            this.BeginOperationTwoPick(PendingOp.RemoveOneWay,
+            BeginOperationTwoPick(PendingOp.RemoveOneWay,
                 (a, b) =>
                 {
                     bool changed = a.RemoveRestriction(b);
@@ -300,7 +314,7 @@ namespace SecretSantaSorter
 
         private void BtnRemoveMutualRestriction(object sender, RoutedEventArgs e)
         {
-            this.BeginOperationTwoPick(PendingOp.RemoveMutual,
+            BeginOperationTwoPick(PendingOp.RemoveMutual,
                 (a, b) =>
                 {
                     bool changed = PersonPush.RemoveMutualRestriction(a, b);
@@ -317,14 +331,14 @@ namespace SecretSantaSorter
         private void BtnRemoveAllSingleRestrictions(object sender, RoutedEventArgs e)
         {
             // One-pick: clear ONLY this person's outgoing restrictions (no incoming scrub).
-            this.BeginOperationOnePick(PendingOp.ClearAllForOne,
+            BeginOperationOnePick(PendingOp.ClearAllForOne,
                 person =>
                 {
                     int removed = PersonPush.ClearRestrictions(person);
                     UiLog.Write(
                         string.Format(CultureInfo.CurrentCulture, Globals.Formats.ClearedOutgoing, removed, person.Name),
                         Globals.LogTags.People);
-                    this.LstDisplay.Items.Refresh();
+                    LstDisplay.Items.Refresh();
                 },
                 "clear this person's restrictions");
         }
@@ -332,14 +346,14 @@ namespace SecretSantaSorter
         private void BtnRemoveAllMutualRestrictions(object sender, RoutedEventArgs e)
         {
             // One-pick flow: clear outgoing + incoming for that person
-            this.BeginOperationOnePick(PendingOp.ClearAllForOne,
+            BeginOperationOnePick(PendingOp.ClearAllForOne,
                 person =>
                 {
-                    var (outCnt, inCnt) = PersonPush.ClearAllRestrictionLinks(person);
+                    (int outCnt, int inCnt) = PersonPush.ClearAllRestrictionLinks(person);
                     UiLog.Write(
                         string.Format(CultureInfo.CurrentCulture, Globals.Formats.ClearedAllFor, person.Name, outCnt, inCnt),
                         Globals.LogTags.People);
-                    this.LstDisplay.Items.Refresh();
+                    LstDisplay.Items.Refresh();
                 },
                 "clear all restrictions for");
         }
@@ -348,7 +362,7 @@ namespace SecretSantaSorter
 
         private void ShowTextPopup(string title, string text)
         {
-            var tb = new TextBlock
+            TextBlock tb = new()
             {
                 Text = text,
                 TextWrapping = TextWrapping.Wrap,
@@ -356,14 +370,14 @@ namespace SecretSantaSorter
                 FontFamily = new System.Windows.Media.FontFamily("Consolas")
             };
 
-            var sv = new ScrollViewer
+            ScrollViewer sv = new()
             {
                 Content = tb,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
             };
 
-            var win = new Window
+            Window win = new()
             {
                 Title = title,
                 Owner = this,
@@ -376,26 +390,26 @@ namespace SecretSantaSorter
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            win.ShowDialog();
+            _ = win.ShowDialog();
         }
 
         private void BtnDisplayList(object sender, RoutedEventArgs e)
         {
             try
             {
-                var pairs = SecretSantaSorter.SecretSantaMatcher.Match(); // may throw if impossible
-                var lines = pairs.Select(t =>
+                List<(PersonData Primary, PersonData Recipient)> pairs = SecretSantaSorter.SecretSantaMatcher.Match(); // may throw if impossible
+                IEnumerable<string> lines = pairs.Select(t =>
                     string.Format(CultureInfo.CurrentCulture, Globals.Formats.PairLine, t.Primary.Name, t.Recipient.Name));
-                this.ShowTextPopup(Globals.Dialog.AssignmentsPopupTitle, string.Join(Environment.NewLine, lines));
+                ShowTextPopup(Globals.Dialog.AssignmentsPopupTitle, string.Join(Environment.NewLine, lines));
             }
             catch (InvalidOperationException ex)
             {
-                System.Windows.MessageBox.Show(this, ex.Message, Globals.Dialog.NoValidAssignmentTitle,
+                _ = System.Windows.MessageBox.Show(this, ex.Message, Globals.Dialog.NoValidAssignmentTitle,
                                                MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(this, ex.ToString(), Globals.Dialog.ErrorTitle,
+                _ = System.Windows.MessageBox.Show(this, ex.ToString(), Globals.Dialog.ErrorTitle,
                                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -406,23 +420,26 @@ namespace SecretSantaSorter
         {
             try
             {
-                var pairs = SecretSantaSorter.SecretSantaMatcher.Match(); // may throw
+                List<(PersonData Primary, PersonData Recipient)> pairs = SecretSantaSorter.SecretSantaMatcher.Match(); // may throw
 
                 string? baseFolder = PickFolder();
-                if (string.IsNullOrEmpty(baseFolder)) return; // user cancelled
+                if (string.IsNullOrEmpty(baseFolder))
+                {
+                    return; // user cancelled
+                }
 
                 string year = DateTime.Now.Year.ToString(CultureInfo.InvariantCulture);
                 string folderName = string.Format(CultureInfo.CurrentCulture, Globals.Formats.FolderName, year);
                 string targetDir = CreateUniqueDirectory(baseFolder, folderName);
 
-                foreach (var (Primary, Recipient) in pairs)
+                foreach ((PersonData Primary, PersonData Recipient) in pairs)
                 {
                     string fileName = SanitizeFileName($"{Primary.Name}{Globals.Files.OutputExtension}");
                     string filePath = EnsureUniquePath(IOPath.Combine(targetDir, fileName));
                     File.WriteAllText(filePath, string.Format(Globals.Files.DocumentInputString, Primary.Name, Recipient.Name) + Environment.NewLine, System.Text.Encoding.UTF8);
                 }
 
-                System.Windows.MessageBox.Show(this,
+                _ = System.Windows.MessageBox.Show(this,
                                                string.Format(CultureInfo.CurrentCulture,
                                                              Globals.Formats.ExportedCount, pairs.Count, targetDir),
                                                Globals.Dialog.ExportCompleteTitle,
@@ -430,19 +447,19 @@ namespace SecretSantaSorter
             }
             catch (InvalidOperationException ex)
             {
-                System.Windows.MessageBox.Show(this, ex.Message, Globals.Dialog.NoValidAssignmentTitle,
+                _ = System.Windows.MessageBox.Show(this, ex.Message, Globals.Dialog.NoValidAssignmentTitle,
                                                MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(this, ex.ToString(), Globals.Dialog.ExportErrorTitle,
+                _ = System.Windows.MessageBox.Show(this, ex.ToString(), Globals.Dialog.ExportErrorTitle,
                                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private static string? PickFolder()
         {
-            using var dlg = new Forms.FolderBrowserDialog
+            using FolderBrowserDialog dlg = new()
             {
                 Description = Globals.Dialog.FolderPickerDescription,
                 UseDescriptionForTitle = true,
@@ -456,7 +473,7 @@ namespace SecretSantaSorter
             string path = IOPath.Combine(parent, baseName);
             if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(path);
+                _ = Directory.CreateDirectory(path);
                 return path;
             }
             int i = 2;
@@ -465,7 +482,7 @@ namespace SecretSantaSorter
                 string candidate = IOPath.Combine(parent, $"{baseName}_{i}");
                 if (!Directory.Exists(candidate))
                 {
-                    Directory.CreateDirectory(candidate);
+                    _ = Directory.CreateDirectory(candidate);
                     return candidate;
                 }
                 i++;
@@ -474,14 +491,18 @@ namespace SecretSantaSorter
 
         private static string SanitizeFileName(string name)
         {
-            var bad = IOPath.GetInvalidFileNameChars();
-            var cleaned = new string(name.Select(c => bad.Contains(c) ? '_' : c).ToArray()).Trim();
+            char[] bad = IOPath.GetInvalidFileNameChars();
+            string cleaned = new string(name.Select(c => bad.Contains(c) ? '_' : c).ToArray()).Trim();
             return string.IsNullOrWhiteSpace(cleaned) ? Globals.Files.DefaultFileName : cleaned;
         }
 
         private static string EnsureUniquePath(string path)
         {
-            if (!File.Exists(path)) return path;
+            if (!File.Exists(path))
+            {
+                return path;
+            }
+
             string? dir = IOPath.GetDirectoryName(path);
             string name = IOPath.GetFileNameWithoutExtension(path);
             string ext = IOPath.GetExtension(path);
@@ -490,7 +511,11 @@ namespace SecretSantaSorter
             while (true)
             {
                 string candidate = IOPath.Combine(dir!, $"{name}_{i}{ext}");
-                if (!File.Exists(candidate)) return candidate;
+                if (!File.Exists(candidate))
+                {
+                    return candidate;
+                }
+
                 i++;
             }
         }

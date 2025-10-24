@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\matching.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:matching.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\uilog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:uilog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\people.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:people.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\matching.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:matching.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\globals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:globals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\uilog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:uilog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|d:\\user\\andrew\\desktop\\projects\\it\\general\\secret-santa\\v2\\secretsantasorter\\people.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0A48F2C-1281-4BB9-901F-267066F93A92}|SecretSantaSorter.csproj|solutionrelative:people.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 72,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
@@ -66,33 +66,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAAIgBAAAAAAAAAAAqwKYBAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAJYBAAAAAAAAAAAqwKYBAABsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-24T10:37:21.447Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "UILog.cs",
               "DocumentMoniker": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\UILog.cs",
               "RelativeDocumentMoniker": "UILog.cs",
               "ToolTip": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\UILog.cs",
               "RelativeToolTip": "UILog.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-24T10:37:21.806Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "People.cs",
               "DocumentMoniker": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\People.cs",
               "RelativeDocumentMoniker": "People.cs",
@@ -105,33 +105,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Matching.cs",
               "DocumentMoniker": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\Matching.cs",
               "RelativeDocumentMoniker": "Matching.cs",
               "ToolTip": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\Matching.cs",
               "RelativeToolTip": "Matching.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAABYAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-24T10:37:21.521Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Globals.cs",
               "DocumentMoniker": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\Globals.cs",
               "RelativeDocumentMoniker": "Globals.cs",
               "ToolTip": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\Globals.cs",
               "RelativeToolTip": "Globals.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAhwK8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAhwK0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-24T10:37:21.372Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "D:\\User\\Andrew\\Desktop\\Projects\\IT\\General\\secret-santa\\v2\\SecretSantaSorter\\App.xaml.cs",
               "RelativeDocumentMoniker": "App.xaml.cs",

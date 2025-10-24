@@ -12,15 +12,17 @@ namespace SecretSantaSorter
         {
             random ??= new Random();
 
-            var people = PersonStorage.AllPersons.ToList();
+            List<PersonData> people = PersonStorage.AllPersons.ToList();
             if (people.Count < 2)
+            {
                 return [];
+            }
 
             // Precompute allowed recipients per giver
-            var allowed = new Dictionary<PersonData, List<PersonData>>(people.Count);
-            foreach (var p in people)
+            Dictionary<PersonData, List<PersonData>> allowed = new(people.Count);
+            foreach (PersonData? p in people)
             {
-                var candidates = people
+                List<PersonData> candidates = people
                     .Where(q => !ReferenceEquals(q, p) && !p.Restrictions.Contains(q))
                     .ToList();
                 allowed[p] = candidates;
@@ -28,38 +30,48 @@ namespace SecretSantaSorter
 
             // Quick infeasibility check
             if (allowed.Any(kv => kv.Value.Count == 0))
+            {
                 throw new InvalidOperationException("No valid assignment: at least one person has no permissible recipients.");
+            }
 
             // Heuristic order: fewest options first (MRV), with random tie-breaks
             List<PersonData> OrderGivers()
-                => allowed.Keys
-                          .OrderBy(k => allowed[k].Count)
-                          .ThenBy(_ => random.Next())
-                          .ToList();
+            {
+                return allowed.Keys
+                                      .OrderBy(k => allowed[k].Count)
+                                      .ThenBy(_ => random.Next())
+                                      .ToList();
+            }
 
             // Backtracking state
-            var used = new HashSet<PersonData>();                 // recipients already taken
-            var assign = new Dictionary<PersonData, PersonData>(); // giver -> recipient
+            HashSet<PersonData> used = [];                 // recipients already taken
+            Dictionary<PersonData, PersonData> assign = []; // giver -> recipient
 
             bool Solve(IReadOnlyList<PersonData> givers, int idx)
             {
-                if (idx == givers.Count) return true;
+                if (idx == givers.Count)
+                {
+                    return true;
+                }
 
-                var giver = givers[idx];
+                PersonData giver = givers[idx];
 
                 // viable candidates this step
-                var candidates = allowed[giver].Where(c => !used.Contains(c)).ToList();
+                List<PersonData> candidates = allowed[giver].Where(c => !used.Contains(c)).ToList();
                 ShuffleInPlace(candidates, random);
 
-                foreach (var rec in candidates)
+                foreach (PersonData? rec in candidates)
                 {
                     assign[giver] = rec;
-                    used.Add(rec);
+                    _ = used.Add(rec);
 
-                    if (Solve(givers, idx + 1)) return true;
+                    if (Solve(givers, idx + 1))
+                    {
+                        return true;
+                    }
 
-                    used.Remove(rec);
-                    assign.Remove(giver);
+                    _ = used.Remove(rec);
+                    _ = assign.Remove(giver);
                 }
 
                 return false;
@@ -71,10 +83,13 @@ namespace SecretSantaSorter
                 used.Clear();
                 assign.Clear();
 
-                var order = OrderGivers();
+                List<PersonData> order = OrderGivers();
 
                 // Optional: small random perturbation inside allowed lists each attempt
-                foreach (var k in people) ShuffleInPlace(allowed[k], random);
+                foreach (PersonData? k in people)
+                {
+                    ShuffleInPlace(allowed[k], random);
+                }
 
                 if (Solve(order, 0))
                 {
