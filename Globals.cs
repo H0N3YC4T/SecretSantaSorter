@@ -31,7 +31,7 @@ namespace SecretSantaSorter
             public const string RestrictionArrow = " ->! ";
 
             /// <summary>Arrow used in “giver -&gt; recipient” displays.</summary>
-            public const string PairArrow = " -> ";
+            public const string PairArrow = " ->! ";
         }
 
         /// <summary>
@@ -175,6 +175,7 @@ namespace SecretSantaSorter
         /// <summary>File/folder related constants.</summary>
         public static class Files
         {
+
             /// <summary>String to place in the saved files.</summary>
             public const string DocumentInputString = "{0} is buying a present for {1}";
 
@@ -183,6 +184,17 @@ namespace SecretSantaSorter
 
             /// <summary>Extension for per-giver output files.</summary>
             public const string OutputExtension = ".txt";
+
+            /// <summary>Extension for website output file.</summary>
+            public const string OutputExtensionWeb = ".php";
+
+            public const string OutputLineWeb = "'{0}'   => '{1}: you’re buying for {2}.',";
+
+            public const string OutputOpenWeb = """
+                                                <?php
+                                                return [
+                                                """;
+            public const string OutputCloseWeb = "];";
         }
     }
 }

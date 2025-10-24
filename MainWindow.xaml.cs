@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Forms = System.Windows.Forms;
+using System.Security.Cryptography;
+using System.Text;
 using IOPath = System.IO.Path;
 
 namespace SecretSantaSorter
@@ -415,46 +417,116 @@ namespace SecretSantaSorter
         }
 
         // -------- Export to folder (WinForms folder picker, disambiguated) --------
-
         private void BtnSaveList(object sender, RoutedEventArgs e)
         {
             try
             {
-                List<(PersonData Primary, PersonData Recipient)> pairs = SecretSantaSorter.SecretSantaMatcher.Match(); // may throw
+                var pairs = SecretSantaSorter.SecretSantaMatcher.Match(); // may throw
 
                 string? baseFolder = PickFolder();
-                if (string.IsNullOrEmpty(baseFolder))
-                {
-                    return; // user cancelled
-                }
+                if (string.IsNullOrEmpty(baseFolder)) return; // user cancelled
 
-                string year = DateTime.Now.Year.ToString(CultureInfo.InvariantCulture);
-                string folderName = string.Format(CultureInfo.CurrentCulture, Globals.Formats.FolderName, year);
-                string targetDir = CreateUniqueDirectory(baseFolder, folderName);
+                string year = DateTime.Now.Year.ToString();
+                string targetDir = CreateUniqueDirectory(baseFolder, $"SecretSanta_{year}");
 
-                foreach ((PersonData Primary, PersonData Recipient) in pairs)
+                // --- Generate unique 5-digit codes for all gifters ---
+                var codeMap = GenerateUniqueCodes(pairs.Select(p => p.Primary));
+
+                // --- Write individual TXT files (unchanged requirement) ---
+                foreach (var (Primary, Recipient) in pairs)
                 {
-                    string fileName = SanitizeFileName($"{Primary.Name}{Globals.Files.OutputExtension}");
+                    string fileName = SanitizeFileName($"{Primary.Name}.txt");
                     string filePath = EnsureUniquePath(IOPath.Combine(targetDir, fileName));
-                    File.WriteAllText(filePath, string.Format(Globals.Files.DocumentInputString, Primary.Name, Recipient.Name) + Environment.NewLine, System.Text.Encoding.UTF8);
+                    File.WriteAllText(filePath, Recipient.Name + Environment.NewLine, Encoding.UTF8);
                 }
 
-                _ = System.Windows.MessageBox.Show(this,
-                                               string.Format(CultureInfo.CurrentCulture,
-                                                             Globals.Formats.ExportedCount, pairs.Count, targetDir),
-                                               Globals.Dialog.ExportCompleteTitle,
-                                               MessageBoxButton.OK, MessageBoxImage.Information);
+                // --- Write messages.php using codes as keys ---
+                string phpPath = IOPath.Combine(targetDir, "messages" + Globals.Files.OutputExtensionWeb);
+                var php = BuildWebOutput(pairs, codeMap);
+                File.WriteAllText(phpPath, php, Encoding.UTF8);
+
+                // --- Write keys.txt (Name -> CODE) so you can hand codes out ---
+                string keysPath = IOPath.Combine(targetDir, "keys.txt");
+                var keysSb = new StringBuilder();
+                foreach (var (Primary, _) in pairs)
+                {
+                    keysSb.AppendLine($"{Primary.Name} -> {codeMap[Primary]}");
+                }
+                File.WriteAllText(keysPath, keysSb.ToString(), Encoding.UTF8);
+
+                System.Windows.MessageBox.Show(this,
+                    $"Exported {pairs.Count} assignments to:\n{targetDir}\n\n" +
+                    $"Created:\n • {pairs.Count} *.txt files\n • messages.php\n • keys.txt",
+                    "Export complete", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (InvalidOperationException ex)
             {
-                _ = System.Windows.MessageBox.Show(this, ex.Message, Globals.Dialog.NoValidAssignmentTitle,
+                System.Windows.MessageBox.Show(this, ex.Message, "No valid assignment",
                                                MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                _ = System.Windows.MessageBox.Show(this, ex.ToString(), Globals.Dialog.ExportErrorTitle,
+                System.Windows.MessageBox.Show(this, ex.ToString(), "Export error",
                                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        /// <summary>Generate unique 5-digit zero-padded codes for each person.</summary>
+        private static Dictionary<PersonData, string> GenerateUniqueCodes(IEnumerable<PersonData> people)
+        {
+            var dict = new Dictionary<PersonData, string>();
+            var used = new HashSet<string>();
+
+            foreach (var p in people)
+            {
+                string code;
+                // Draw uniformly with a CSPRNG; loop until we get a unique code.
+                do
+                {
+                    int n = RandomNumberGenerator.GetInt32(0, 100_000); // 00000..99999
+                    code = n.ToString("D5");
+                } while (!used.Add(code));
+
+                dict[p] = code;
+            }
+
+            return dict;
+        }
+
+        /// <summary>
+        /// Build the PHP file content mapping code => "Name: you’re buying for Recipient.".
+        /// Uses the string templates you put in Globals.Files.
+        /// </summary>
+        private static string BuildWebOutput(
+            IList<(PersonData Primary, PersonData Recipient)> pairs,
+            Dictionary<PersonData, string> codeMap)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(Globals.Files.OutputOpenWeb);
+
+            // Keep a stable, readable order (by giver's name)
+            foreach (var pr in pairs.OrderBy(t => t.Primary.Name, StringComparer.OrdinalIgnoreCase))
+            {
+                string code = codeMap[pr.Primary];
+                // "'{0}'   => '{1}: you’re buying for {2}.',"
+                sb.AppendLine(string.Format(
+                    Globals.Files.OutputLineWeb,
+                    code,
+                    pr.Primary.Name.Replace("'", "\\'"),
+                    pr.Recipient.Name.Replace("'", "\\'")
+                ));
+            }
+
+            sb.AppendLine(Globals.Files.OutputCloseWeb);
+            return sb.ToString();
+        }
+
+
+        private static string EscapePhp(string s)
+        {
+            if (s is null) return string.Empty;
+            // Minimal escaping for single-quoted PHP strings: escape backslash and single-quote
+            return s.Replace("\\", "\\\\").Replace("'", "\\'");
         }
 
         private static string? PickFolder()
