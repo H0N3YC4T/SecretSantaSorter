@@ -328,7 +328,7 @@
                          Grid.Row="1"
                          Style="{StaticResource CleanListBox}"
                          FontFamily="Consolas"
-                         FontSize="16" d:ItemsSource="{d:SampleData ItemCount=5}" />
+                         FontSize="16" />
             </Grid>
         </Border>
     </Grid>
